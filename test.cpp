@@ -3,13 +3,13 @@
 #define BLYNK_TEMPLATE_AUTH "WPg5Ue3V92IEaCSXMXcfTTw4f-claEpj"
 #define BLYNK_PRINT Serial
 
-
+// #include <ESP8266WiFi.h>
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 
-#include <BlynkSimpleEsp8266.h>
-#include <ESP8266WiFi.h>
+// #include <BlynkSimpleEsp8266.h>
+// #include<WiFi.h>
 
 #include <DFRobot_DHT11.h>
 DFRobot_DHT11 DHT;
@@ -32,8 +32,8 @@ int Buzzer = D0;
 Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT);
 
 void setup() {
-  WiFi.begin(ssid,password);  
-  
+  // WiFi.begin(ssid,password);  
+  // Blynk.begin(auth,ssid,password);
 
   Serial.begin(9600);
 
@@ -50,7 +50,7 @@ void setup() {
   delay(4000);
 
   display.clearDisplay();
-  Blynk.begin(auth,ssid,password);
+
   pinMode(A0,INPUT);
   pinMode(D5,OUTPUT);
   pinMode(D0,OUTPUT);
@@ -69,7 +69,7 @@ void loop() {
   Serial.println(LDR_Vp);
 
   if(LDR_Vp==0){
-    if (DHT.temperature<=24){
+    if (DHT.temperature<=27){
     display.setTextSize(1);
     display.setTextColor(WHITE);
     display.setCursor(0,40);
@@ -82,7 +82,7 @@ void loop() {
     digitalWrite(Buzzer,LOW);
     digitalWrite(LEDB,LOW);
   }
-  else if(DHT.temperature>=32){
+  else if(DHT.temperature>=35){
     display.setTextSize(1);
     display.setTextColor(WHITE);
     display.setCursor(0,40);
@@ -139,11 +139,11 @@ void loop() {
   display.display();
   }
 
-  Blynk.virtualWrite(V0,DHT.humidity);
-  Blynk.virtualWrite(V1,DHT.temperature);
-  Blynk.virtualWrite(V2,LDRSensor);
-  Blynk.virtualWrite(V3,LEDB);
-  Blynk.virtualWrite(V4,A0);
-  Blynk.virtualWrite(V5,Buzzer);
-  Blynk.run();
+  // Blynk.virtualWrite(V0,DHT.humidity);
+  // Blynk.virtualWrite(V1,DHT.temperature);
+  // Blynk.virtualWrite(V2,LDRSensor);
+  // Blynk.virtualWrite(V3,LEDB);
+  // Blynk.virtualWrite(V4,A0);
+  // Blynk.virtualWrite(V5,Buzzer);
+  // Blynk.run();
 }
